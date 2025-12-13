@@ -1,7 +1,7 @@
 ---
 name: run-all
 description: Run multiple tasks by spawning continue-dev subagents (orchestrated by main agent)
-argument-hint: [feature-name] [--count N] [--all]
+argument-hint: [feature-name] [--count N] [--all] [--validate]
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Task, TodoWrite
 ---
 
@@ -21,6 +21,7 @@ Extract from `$ARGUMENTS`:
 - `feature_name`: First non-flag argument (optional)
 - `count`: Number from `--count N` (default: 5)
 - `run_all_flag`: True if `--all` flag is present (overrides count)
+- `validate_flag`: True if `--validate` flag is present (enables adversarial validation)
 
 ### 1.2 Find Feature Directory
 
@@ -207,6 +208,35 @@ Run verification after implementation:
    - Log the failure
    - **Stop orchestration** - do not mark task as passing
    - Report what failed and suggest fixes
+
+### 3.3.5 VALIDATE (Optional - If --validate flag)
+
+If `validate_flag` was set:
+
+1. **Spawn validator agent**:
+   ```
+   Task tool parameters:
+   - subagent_type: "task-validator"
+   - prompt: |
+       Validate this completed task:
+
+       Feature: <feature_name>
+       Task ID: <task_id>
+
+       Task definition:
+       <full task JSON>
+
+       Produce a validation report with APPROVED or NEEDS_WORK status.
+   - description: "Validate task #<id>"
+   ```
+
+2. **Check validator result**:
+   - If APPROVED: Continue to PHASE 3.4
+   - If NEEDS_WORK:
+     - Log validation feedback in progress.txt
+     - **Stop orchestration**
+     - Display validation report with immediate actions
+     - Do NOT mark task as passing
 
 ### 3.4 UPDATE (Mark Progress)
 
