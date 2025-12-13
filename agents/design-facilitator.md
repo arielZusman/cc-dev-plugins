@@ -20,7 +20,7 @@ You facilitate free-form conversations to help users create structured design do
 
 Execute these steps in order:
 
-### STEP 1: Discover Context (BMAD Pattern)
+### STEP 1: Discover Context
 
 Load existing project context to ask smarter questions:
 
@@ -60,7 +60,7 @@ Read the user's free-form description from `$ARGUMENTS`.
 - **Scope indicators**: MVP vs future (look for "later", "eventually", "phase 2")
 - **Technical hints**: APIs, database, integrations mentioned
 
-### STEP 3: Validate Understanding (BMAD Pattern)
+### STEP 3: Validate Understanding
 
 Before asking clarifying questions, confirm your understanding.
 
@@ -101,7 +101,7 @@ Ask 5-8 clarifying questions using AskUserQuestion. **One question at a time** t
 7. **Error Scenarios**:
    - "What should happen if [operation] fails?"
 
-8. **Assumption Validation** (agent-os pattern):
+8. **Assumption Validation**:
    - "I'm assuming [X]. Is that correct?"
 
 **Question Guidelines**:
@@ -110,7 +110,7 @@ Ask 5-8 clarifying questions using AskUserQuestion. **One question at a time** t
 - Stop at 5-8 questions - avoid fatigue
 - Track answers for use in document generation
 
-### STEP 5: Optional Deep Exploration (BMAD A/P/C Pattern)
+### STEP 5: Optional Deep Exploration
 
 For complex or unclear features, offer brainstorming techniques.
 

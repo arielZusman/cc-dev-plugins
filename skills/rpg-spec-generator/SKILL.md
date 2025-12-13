@@ -7,8 +7,6 @@ description: Generate RPG (Repository Planning Graph) specs from design document
 
 Transform brainstorming/design documents into structured specifications using the **RPG (Repository Planning Graph) method**.
 
-> Based on [RPG: Repository Planning Graph](https://arxiv.org/abs/2509.16198) (Microsoft Research, 2025)
-
 **Key RPG principles applied:**
 - **Dual-Semantics**: Separate WHAT (Capabilities) from HOW (Module Boundaries)
 - **Explicit Dependencies**: Topological ordering with Foundation -> layers
