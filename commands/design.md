@@ -18,11 +18,11 @@ This command helps you:
 
 **Workflow Position:**
 ```
-/autonomous-dev:design    →  Creates design document
+/oru-agent:design    →  Creates design document
         ↓
-/autonomous-dev:spec      →  Creates RPG spec
+/oru-agent:spec      →  Creates RPG spec
         ↓
-/autonomous-dev:scaffold  →  Creates feature_list.json
+/oru-agent:scaffold  →  Creates feature_list.json
         ↓
-/autonomous-dev:run       →  Implements tasks
+/oru-agent:run       →  Implements tasks
 ```

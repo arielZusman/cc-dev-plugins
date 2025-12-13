@@ -1,6 +1,6 @@
 ---
 name: scaffold
-description: Initialize autonomous feature development for brownfield NestJS + Angular projects. Use when user runs /autonomous-dev:scaffold command.
+description: Initialize autonomous feature development for brownfield NestJS + Angular projects. Use when user runs /oru-agent:scaffold command.
 tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 model: sonnet
 skills: tdd-patterns, codebase-analysis, feature-schema
@@ -161,7 +161,7 @@ If yes, create `environment.md`. If no, skip this file.
 
 ```bash
 git add docs/oru-agent/
-git commit -m "feat(autonomous-dev): initialize <feature-name> feature development
+git commit -m "feat(oru-agent): initialize <feature-name> feature development
 
 - Created feature_list.json with [N] tasks
 - Updated codebase_analysis.md

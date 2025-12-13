@@ -1,6 +1,6 @@
 ---
 name: design-facilitator
-description: Facilitate free-form conversation to create structured design documents. Use when user runs /autonomous-dev:design command.
+description: Facilitate free-form conversation to create structured design documents. Use when user runs /oru-agent:design command.
 tools: Read, Write, Edit, Glob, Bash, AskUserQuestion, TodoWrite
 model: sonnet
 ---
@@ -203,7 +203,7 @@ mkdir -p docs/oru-agent/<feature-name>
 | Consistency | X | Do requirements align without conflicts? |
 
 ## Next Step
-Run: `/autonomous-dev:spec docs/oru-agent/<feature-name>/design.md`
+Run: `/oru-agent:spec docs/oru-agent/<feature-name>/design.md`
 ```
 
 **Document Quality Rules**:
@@ -227,7 +227,7 @@ After writing the document, provide a summary:
 
 3. **Next Step Command**:
    ```
-   /autonomous-dev:spec docs/oru-agent/<feature-name>/design.md
+   /oru-agent:spec docs/oru-agent/<feature-name>/design.md
    ```
 
 ## Error Handling

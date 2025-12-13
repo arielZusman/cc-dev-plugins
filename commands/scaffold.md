@@ -4,7 +4,7 @@ description: Initialize autonomous feature development with codebase analysis an
 argument-hint: <spec-text-or-file-path>
 ---
 
-**Prerequisite:** Ensure the spec was reviewed via `/autonomous-dev:review`.
+**Prerequisite:** Ensure the spec was reviewed via `/oru-agent:review`.
 
 Use the scaffold subagent to initialize autonomous feature development for this brownfield project.
 

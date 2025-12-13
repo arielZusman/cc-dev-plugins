@@ -18,7 +18,7 @@ Transform brainstorming/design documents into structured specifications using th
 
 - After completing `superpowers:brainstorming`
 - When design documents exist in `docs/oru-agent/*/design.md`
-- Before running `/autonomous-dev:scaffold`
+- Before running `/oru-agent:scaffold`
 
 ## Examples
 
@@ -40,7 +40,7 @@ If an explicit path was provided as argument, use that. Otherwise auto-detect fr
 ls -t docs/oru-agent/*/design.md 2>/dev/null | head -5
 ```
 
-If no document found: Ask user to provide the path or run `/autonomous-dev:design` first.
+If no document found: Ask user to provide the path or run `/oru-agent:design` first.
 
 ### Step 2: Analyze Design Document
 
@@ -332,7 +332,7 @@ For each item in Dependency Graph:
 
 ### Step 5: Write Spec File
 
-The feature directory should already exist from `/autonomous-dev:design`. If not, create it:
+The feature directory should already exist from `/oru-agent:design`. If not, create it:
 
 ```bash
 mkdir -p docs/oru-agent/<feature-name>
@@ -363,7 +363,7 @@ After generating the spec, provide:
    Spec generated at: docs/oru-agent/<feature-name>/spec.md
 
    Next step - run scaffold with this spec:
-   /autonomous-dev:scaffold @docs/oru-agent/<feature-name>/spec.md
+   /oru-agent:scaffold @docs/oru-agent/<feature-name>/spec.md
    ```
 
 ---

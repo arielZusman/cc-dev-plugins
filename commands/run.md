@@ -305,7 +305,7 @@ Remaining tasks:
 - #<id>: <description>
 - #<id>: <description>
 
-Run `/autonomous-dev:run <feature-name>` to continue.
+Run `/oru-agent:run <feature-name>` to continue.
 ```
 
 ### If feature complete:
@@ -344,7 +344,7 @@ If PHASE 2 verification fails:
 If no `feature_list.json` found:
 1. Report error: "No feature found"
 2. List available features (if any)
-3. Suggest running `/autonomous-dev:scaffold` to create a new feature
+3. Suggest running `/oru-agent:scaffold` to create a new feature
 
 ### All Tasks Already Complete
 If feature is 100% complete:

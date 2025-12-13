@@ -18,7 +18,7 @@ If no path provided, auto-detect from `docs/oru-agent/*/spec.md`.
 - Efficiency of dependency ordering
 
 **Outcomes:**
-- **APPROVED**: Proceed with `/autonomous-dev:scaffold`
+- **APPROVED**: Proceed with `/oru-agent:scaffold`
 - **APPROVED WITH CONCERNS**: Note concerns, then proceed
-- **NEEDS REVISION**: Edit spec.md or re-run `/autonomous-dev:spec`
-- **REJECTED**: Return to `/autonomous-dev:design`
+- **NEEDS REVISION**: Edit spec.md or re-run `/oru-agent:spec`
+- **REJECTED**: Return to `/oru-agent:design`

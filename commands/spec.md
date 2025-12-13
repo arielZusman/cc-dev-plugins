@@ -17,4 +17,4 @@ Use the `rpg-spec-generator` skill to transform a brainstorming/design document 
 
 If no path provided, will auto-detect from `docs/oru-agent/*/design.md`.
 
-**Next step:** Run `/autonomous-dev:review` to validate the spec before scaffolding.
+**Next step:** Run `/oru-agent:review` to validate the spec before scaffolding.
