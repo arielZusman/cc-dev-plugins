@@ -17,7 +17,7 @@ Transform brainstorming/design documents into structured specifications using th
 ## When to Use
 
 - After completing `superpowers:brainstorming`
-- When design documents exist in `docs/plans/*-design.md`
+- When design documents exist in `docs/oru-agent/*/design.md`
 - Before running `/autonomous-dev:init-spec`
 
 ## Examples
@@ -37,16 +37,10 @@ See: `examples/complex-feature.md`
 If an explicit path was provided as argument, use that. Otherwise auto-detect from recent design docs:
 
 ```bash
-ls -t docs/plans/*-design.md 2>/dev/null | head -5
+ls -t docs/oru-agent/*/design.md 2>/dev/null | head -5
 ```
 
-If no docs found, check alternate locations:
-
-```bash
-ls -t docs/*.md docs/designs/*.md .claude/brainstorms/*.md 2>/dev/null | head -5
-```
-
-If no document found: Ask user to provide the path or paste the brainstorming output.
+If no document found: Ask user to provide the path or run `/autonomous-dev:design` first.
 
 ### Step 2: Analyze Design Document
 
@@ -84,7 +78,7 @@ Set `COMPLEXITY_LEVEL` (simple/medium/complex) for use in Step 4.
 Look for existing context to reference:
 
 ```bash
-cat autonomous-dev/codebase_analysis.md 2>/dev/null || echo "NOT_FOUND"
+cat docs/oru-agent/codebase_analysis.md 2>/dev/null || echo "NOT_FOUND"
 ```
 
 **Note**: This reads the cached analysis created by previous init-spec runs. If the file doesn't exist, the spec will have minimal pattern references, and init-spec will perform full analysis when processing this spec.
@@ -338,24 +332,19 @@ For each item in Dependency Graph:
 
 ### Step 5: Write Spec File
 
-Create the output directory:
+The feature directory should already exist from `/autonomous-dev:design`. If not, create it:
 
 ```bash
-mkdir -p autonomous-dev/prds/<feature-name>
+mkdir -p docs/oru-agent/<feature-name>
 ```
 
-**Write spec**: Use the Write tool to create `autonomous-dev/prds/<feature-name>/spec.md` with the generated content from Step 4.
+**Write spec**: Use the Write tool to create `docs/oru-agent/<feature-name>/spec.md` with the generated content from Step 4.
 
 **Verify the write**:
 
 ```bash
-ls -lh autonomous-dev/prds/<feature-name>/spec.md
+ls -lh docs/oru-agent/<feature-name>/spec.md
 ```
-
-**Note on directory structure**:
-- Specs are stored in `autonomous-dev/prds/<feature-name>/` (raw specifications)
-- Init-spec will create the implementation workspace in `autonomous-dev/features/<feature-name>/`
-- This separation keeps raw specs separate from working feature development
 
 ### Step 6: Report and Suggest Next Steps
 
@@ -371,10 +360,10 @@ After generating the spec, provide:
 
 2. **Next step command**:
    ```
-   Spec generated at: autonomous-dev/prds/<feature-name>/spec.md
+   Spec generated at: docs/oru-agent/<feature-name>/spec.md
 
    Next step - run init-spec with this spec:
-   /autonomous-dev:init-spec @autonomous-dev/prds/<feature-name>/spec.md
+   /autonomous-dev:init-spec @docs/oru-agent/<feature-name>/spec.md
    ```
 
 ---

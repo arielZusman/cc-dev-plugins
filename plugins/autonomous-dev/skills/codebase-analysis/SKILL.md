@@ -102,7 +102,7 @@ Glob: tests/**/*.spec.ts
 
 ## Output Template
 
-Write findings to `autonomous-dev/codebase_analysis.md`:
+Write findings to `docs/oru-agent/codebase_analysis.md`:
 
 ```markdown
 # Codebase Analysis

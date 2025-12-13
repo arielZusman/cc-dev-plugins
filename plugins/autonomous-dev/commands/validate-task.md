@@ -23,11 +23,11 @@ Extract from `$ARGUMENTS`:
 
 1. **Search for feature directory**:
    ```bash
-   ls autonomous-dev/features/*/feature_list.json 2>/dev/null
+   ls docs/oru-agent/*/feature_list.json 2>/dev/null
    ```
 
 2. **Selection logic**:
-   - If `feature_name` provided: Read `autonomous-dev/features/<feature_name>/feature_list.json`
+   - If `feature_name` provided: Read `docs/oru-agent/<feature_name>/feature_list.json`
    - If no `feature_name` and exactly one feature exists: Use it
    - If multiple features and no name: List them and ask user
 

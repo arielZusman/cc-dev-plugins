@@ -1,6 +1,6 @@
 # RPG Spec: usage-metrics-export
 
-**Generated**: 2025-01-15 | **Source**: docs/plans/usage-metrics-design.md | **Complexity**: complex
+**Generated**: 2025-01-15 | **Source**: docs/oru-agent/usage-metrics-export/design.md | **Complexity**: complex
 
 ## Purpose
 Enable users to track usage metrics and export to CSV/JSON/PDF formats.

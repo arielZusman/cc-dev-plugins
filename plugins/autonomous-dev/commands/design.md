@@ -14,7 +14,7 @@ This command helps you:
 
 **User's feature description:** $ARGUMENTS
 
-**Output:** `docs/plans/YYYY-MM-DD-<feature>-design.md`
+**Output:** `docs/oru-agent/<feature>/design.md`
 
 **Workflow Position:**
 ```

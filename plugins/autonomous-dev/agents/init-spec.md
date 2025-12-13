@@ -22,19 +22,19 @@ Execute these phases in order:
 
 1. **Get the specification**: If input looks like a file path (starts with `.`, `/`, or `@`), read the file. Otherwise use the inline text.
 
-2. **Derive feature name**: Extract a short, kebab-case name from the spec (e.g., "user-dashboard", "auth-flow"). This becomes the folder name: `autonomous-dev/features/<feature-name>/`
+2. **Derive feature name**: Extract a short, kebab-case name from the spec (e.g., "user-dashboard", "auth-flow"). This becomes the folder name: `docs/oru-agent/<feature-name>/`
 
 3. **Analyze the spec**: Identify core requirements, integration points, dependencies between sub-features, and risk areas.
 
 ### PHASE 2: Analyze the Existing Codebase
 
-1. **Check for existing analysis**: Look for `autonomous-dev/codebase_analysis.md`
+1. **Check for existing analysis**: Look for `docs/oru-agent/codebase_analysis.md`
    - If exists: Read it and look for NEW patterns relevant to this feature
    - If not: Perform full analysis using the `codebase-analysis` skill
 
 2. **Use the codebase-analysis skill** to analyze NestJS backend, Angular frontend, and testing patterns.
 
-3. **Write/update** `autonomous-dev/codebase_analysis.md` with findings.
+3. **Write/update** `docs/oru-agent/codebase_analysis.md` with findings.
 
 ### PHASE 2.5: Discover Available Agents & Skills
 
@@ -93,7 +93,7 @@ You MUST receive user approval before creating any files. If user selects:
 
 ### PHASE 4: Create Feature Files
 
-1. **Create directory**: `autonomous-dev/features/<feature-name>/`
+1. **Create directory**: `docs/oru-agent/<feature-name>/`
 
 2. **Save specification**: Create `spec.md` with the original specification.
 
@@ -160,7 +160,7 @@ If yes, create `environment.md`. If no, skip this file.
 ### PHASE 6: Commit Progress
 
 ```bash
-git add autonomous-dev/
+git add docs/oru-agent/
 git commit -m "feat(autonomous-dev): initialize <feature-name> feature development
 
 - Created feature_list.json with [N] tasks

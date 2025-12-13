@@ -1,6 +1,6 @@
 # RPG Spec: add-logout-button
 
-**Generated**: 2025-01-15 | **Source**: docs/plans/logout-design.md | **Complexity**: simple
+**Generated**: 2025-01-15 | **Source**: docs/oru-agent/add-logout-button/design.md | **Complexity**: simple
 
 ## Purpose
 Add logout button to profile dropdown for secure session termination.

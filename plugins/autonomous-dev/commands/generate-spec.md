@@ -15,4 +15,4 @@ Use the `rpg-spec-generator` skill to transform a brainstorming/design document 
 
 **Design document path:** $ARGUMENTS
 
-If no path provided, will auto-detect from `docs/plans/*-design.md`.
+If no path provided, will auto-detect from `docs/oru-agent/*/design.md`.

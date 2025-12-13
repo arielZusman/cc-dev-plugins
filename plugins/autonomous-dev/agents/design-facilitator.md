@@ -26,12 +26,12 @@ Load existing project context to ask smarter questions:
 
 ```bash
 # Load codebase analysis if exists
-cat autonomous-dev/codebase_analysis.md 2>/dev/null || echo "NO_CODEBASE_CONTEXT"
+cat docs/oru-agent/codebase_analysis.md 2>/dev/null || echo "NO_CODEBASE_CONTEXT"
 ```
 
 ```bash
 # Discover existing design docs
-ls -t docs/plans/*.md 2>/dev/null | head -5 || echo "NO_EXISTING_PLANS"
+ls -t docs/oru-agent/*/design.md 2>/dev/null | head -5 || echo "NO_EXISTING_DESIGNS"
 ```
 
 **Extract from codebase_analysis.md** (if found):
@@ -132,11 +132,11 @@ For complex or unclear features, offer brainstorming techniques.
 
 ### STEP 6: Generate Design Document
 
-Create the design document at `docs/plans/YYYY-MM-DD-<feature-name>-design.md`.
+Create the design document at `docs/oru-agent/<feature-name>/design.md`.
 
 ```bash
-# Create docs/plans directory if needed
-mkdir -p docs/plans
+# Create feature directory if needed
+mkdir -p docs/oru-agent/<feature-name>
 ```
 
 **Use the Write tool** to create the document with this structure:
@@ -203,7 +203,7 @@ mkdir -p docs/plans
 | Consistency | X | Do requirements align without conflicts? |
 
 ## Next Step
-Run: `/autonomous-dev:generate-spec docs/plans/YYYY-MM-DD-<feature-name>-design.md`
+Run: `/autonomous-dev:generate-spec docs/oru-agent/<feature-name>/design.md`
 ```
 
 **Document Quality Rules**:
@@ -223,11 +223,11 @@ After writing the document, provide a summary:
    - Open questions: N (or "None")
 
 2. **Files Created**:
-   - `docs/plans/YYYY-MM-DD-<feature-name>-design.md`
+   - `docs/oru-agent/<feature-name>/design.md`
 
 3. **Next Step Command**:
    ```
-   /autonomous-dev:generate-spec docs/plans/YYYY-MM-DD-<feature-name>-design.md
+   /autonomous-dev:generate-spec docs/oru-agent/<feature-name>/design.md
    ```
 
 ## Error Handling

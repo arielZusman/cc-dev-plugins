@@ -27,7 +27,7 @@ Extract from `$ARGUMENTS`:
 
 1. **Search for feature directories**:
    ```bash
-   ls autonomous-dev/features/*/feature_list.json 2>/dev/null
+   ls docs/oru-agent/*/feature_list.json 2>/dev/null
    ```
 
 2. **Selection logic**:
@@ -40,7 +40,7 @@ Extract from `$ARGUMENTS`:
 Read these files from the feature directory:
 - `feature_list.json` - Task definitions and status
 - `progress.txt` - Previous session notes
-- `../codebase_analysis.md` - Patterns to follow (if exists)
+- `docs/oru-agent/codebase_analysis.md` - Patterns to follow (if exists)
 
 ### 1.4 Check Git Status
 

@@ -25,7 +25,7 @@ You will receive:
 ## Validation Steps
 
 ### 1. Read Task Definition
-Read the task from `autonomous-dev/features/<feature>/feature_list.json`
+Read the task from `docs/oru-agent/<feature>/feature_list.json`
 
 ### 2. Check Git Changes
 ```bash
