@@ -1,0 +1,85 @@
+# RPG Spec: usage-metrics-export | Complexity: complex
+metadata:
+  feature_name: "usage-metrics-export"
+  complexity: "complex"
+
+purpose:
+  description: "Track usage metrics and export to CSV/JSON/PDF formats"
+  success_criteria: ["Dashboard with date filtering", "Exports <30s for 1yr data"]
+
+capabilities:
+  - name: "metrics-collection"
+    features:
+      - name: "event-tracking"
+        does: "Captures user activity events"
+        maps_to: ["FR-1"]
+        implements_in: "src/modules/metrics/metrics-collector.service.ts"
+      - name: "aggregation-engine"
+        does: "Computes daily/weekly/monthly aggregates"
+        maps_to: ["FR-2"]
+        implements_in: "src/modules/metrics/aggregation.service.ts"
+  - name: "data-export"
+    features:
+      - name: "export-job-management"
+        does: "Manages async export jobs with progress"
+        maps_to: ["FR-3", "FR-4"]
+        implements_in: "src/modules/export/export-job.service.ts"
+  # Additional: user-interface capability (dashboard)
+
+scope:
+  in_scope: ["Event tracking", "Aggregation", "CSV/JSON/PDF export", "Async jobs"]
+  out_of_scope: ["Real-time streaming", "Custom metrics", "Scheduled exports"]
+
+requirements:
+  - id: "FR-1"
+    name: "Event Capture"
+    priority: "P1"
+    implementation_signals: { pure_data_change: true }
+  - id: "FR-2"
+    name: "Metric Aggregation"
+    priority: "P1"
+    implementation_signals: { conditional_logic: true, edge_cases: true }
+  - id: "FR-3"
+    name: "Async Export Processing"
+    priority: "P1"
+    implementation_signals: { state_transitions: true, critical_business_logic: true }
+  # Additional: FR-4 (PDF), FR-5 (Dashboard)
+
+integration:
+  existing_services: [{ name: "QueueService" }, { name: "StorageService" }]
+  api_changes: [{ method: "GET", path: "/api/metrics" }, { method: "POST", path: "/api/exports" }]
+  database_changes: [{ table: "metric_events", type: "new", migration_required: true }]
+
+module_boundaries:
+  - name: "metrics-collector"
+    responsibility: "Capture raw events"
+    location: "src/modules/metrics/"
+    exports: [{ name: "MetricsCollectorService" }]
+  - name: "export-job"
+    responsibility: "Async job lifecycle"
+    location: "src/modules/export/"
+    depends_on: ["format-transformer"]
+  # Additional: aggregation, format-transformer, metrics-api
+
+dependency_graph:
+  - phase: 0
+    name: "foundation"
+    items: [{ id: "database-migrations", depends_on: [] }]
+  - phase: 2
+    name: "service"
+    items: [{ id: "metrics-collector-service" }, { id: "export-job-service" }]
+  - phase: 4
+    name: "validation"
+    items: [{ id: "e2e-tests", depends_on: ["metrics-controller"] }]
+  # Phases 1 (data), 3 (api) omitted for brevity
+
+risk_areas:
+  business_logic: [{ area: "Aggregation timezone handling" }]
+  integration: [{ risk: "Queue availability", mitigation: "Sync fallback" }]
+
+implementation_hints:
+  patterns_to_follow: [{ path: "src/modules/reports/report-generator.service.ts" }]
+
+test_strategy:
+  unit_tests: [{ target: "AggregationService", scenarios: ["timezone edges"] }]
+  e2e_scenarios: [{ name: "export_flow", flow: "Dashboard -> export -> download" }]
