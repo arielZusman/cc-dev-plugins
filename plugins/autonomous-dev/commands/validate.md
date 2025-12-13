@@ -1,5 +1,5 @@
 ---
-name: validate-task
+name: validate
 description: Validate a completed task using adversarial cooperation pattern
 argument-hint: [feature-name] [task-id | --last]
 allowed-tools: Task, Read, Glob
@@ -48,7 +48,7 @@ Status: <passes ? "completed" : "incomplete">
 
 ```
 Task tool parameters:
-- subagent_type: "task-validator"
+- subagent_type: "validator"
 - prompt: |
     Validate this completed task:
 

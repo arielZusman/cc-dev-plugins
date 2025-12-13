@@ -1,10 +1,10 @@
 ---
-name: init-spec
+name: scaffold
 description: Initialize autonomous feature development with codebase analysis and feature list creation
 argument-hint: <spec-text-or-file-path>
 ---
 
-Use the init-spec subagent to initialize autonomous feature development for this brownfield project.
+Use the scaffold subagent to initialize autonomous feature development for this brownfield project.
 
 **Specification provided:** $ARGUMENTS
 

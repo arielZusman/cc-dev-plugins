@@ -1,5 +1,5 @@
 ---
-name: task-validator
+name: validator
 description: Validates completed task implementations against requirements using adversarial cooperation pattern
 tools: Read, Glob, Grep, Bash
 model: sonnet

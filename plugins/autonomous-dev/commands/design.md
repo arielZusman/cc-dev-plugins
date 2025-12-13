@@ -10,7 +10,7 @@ This command helps you:
 - Organize your feature ideas into structured requirements
 - Clarify scope (MVP vs future)
 - Identify edge cases and technical considerations
-- Produce a design document optimized for `generate-spec`
+- Produce a design document optimized for the `spec` command
 
 **User's feature description:** $ARGUMENTS
 
@@ -18,11 +18,11 @@ This command helps you:
 
 **Workflow Position:**
 ```
-/autonomous-dev:design  →  Creates design document
+/autonomous-dev:design    →  Creates design document
         ↓
-/autonomous-dev:generate-spec  →  Creates RPG spec
+/autonomous-dev:spec      →  Creates RPG spec
         ↓
-/autonomous-dev:init-spec  →  Creates feature_list.json
+/autonomous-dev:scaffold  →  Creates feature_list.json
         ↓
-/autonomous-dev:continue-dev  →  Implements tasks
+/autonomous-dev:run       →  Implements tasks
 ```

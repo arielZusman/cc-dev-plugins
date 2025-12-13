@@ -1,6 +1,6 @@
 ---
-name: run-all
-description: Run multiple tasks by spawning continue-dev subagents (orchestrated by main agent)
+name: run
+description: Execute tasks from feature_list.json with full 8-phase workflow
 argument-hint: [feature-name] [--count N] [--all] [--validate]
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Task, TodoWrite
 ---
@@ -216,7 +216,7 @@ If `validate_flag` was set:
 1. **Spawn validator agent**:
    ```
    Task tool parameters:
-   - subagent_type: "task-validator"
+   - subagent_type: "validator"
    - prompt: |
        Validate this completed task:
 
@@ -305,7 +305,7 @@ Remaining tasks:
 - #<id>: <description>
 - #<id>: <description>
 
-Run `/autonomous-dev:run-all <feature-name>` to continue.
+Run `/autonomous-dev:run <feature-name>` to continue.
 ```
 
 ### If feature complete:
@@ -344,7 +344,7 @@ If PHASE 2 verification fails:
 If no `feature_list.json` found:
 1. Report error: "No feature found"
 2. List available features (if any)
-3. Suggest running `/autonomous-dev:init-spec` to create a new feature
+3. Suggest running `/autonomous-dev:scaffold` to create a new feature
 
 ### All Tasks Already Complete
 If feature is 100% complete:

@@ -1,6 +1,6 @@
 ---
-name: init-spec
-description: Initialize autonomous feature development for brownfield NestJS + Angular projects. Use when user runs /autonomous-dev:init-spec command.
+name: scaffold
+description: Initialize autonomous feature development for brownfield NestJS + Angular projects. Use when user runs /autonomous-dev:scaffold command.
 tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 model: sonnet
 skills: tdd-patterns, codebase-analysis, feature-schema

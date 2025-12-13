@@ -1,6 +1,6 @@
 ---
 name: rpg-spec-generator
-description: Generate RPG (Repository Planning Graph) specs from design documents. Creates dependency-aware, topologically-ordered specifications optimized for init-spec processing.
+description: Generate RPG (Repository Planning Graph) specs from design documents. Creates dependency-aware, topologically-ordered specifications optimized for scaffold command processing.
 ---
 
 # RPG Spec Generator
@@ -18,7 +18,7 @@ Transform brainstorming/design documents into structured specifications using th
 
 - After completing `superpowers:brainstorming`
 - When design documents exist in `docs/oru-agent/*/design.md`
-- Before running `/autonomous-dev:init-spec`
+- Before running `/autonomous-dev:scaffold`
 
 ## Examples
 
@@ -81,7 +81,7 @@ Look for existing context to reference:
 cat docs/oru-agent/codebase_analysis.md 2>/dev/null || echo "NOT_FOUND"
 ```
 
-**Note**: This reads the cached analysis created by previous init-spec runs. If the file doesn't exist, the spec will have minimal pattern references, and init-spec will perform full analysis when processing this spec.
+**Note**: This reads the cached analysis created by previous scaffold runs. If the file doesn't exist, the spec will have minimal pattern references, and the scaffold command will perform full analysis when processing this spec.
 
 If found, extract:
 - Module patterns to reference in `existing_patterns`
@@ -189,7 +189,7 @@ When [action]
 Then [expected result]
 ```
 
-**Implementation Signals** (helps init-spec determine task structure):
+**Implementation Signals** (helps scaffold command determine task structure):
 - [ ] Contains conditional logic or branching
 - [ ] Involves state transitions
 - [ ] Pure data structure change
@@ -362,8 +362,8 @@ After generating the spec, provide:
    ```
    Spec generated at: docs/oru-agent/<feature-name>/spec.md
 
-   Next step - run init-spec with this spec:
-   /autonomous-dev:init-spec @docs/oru-agent/<feature-name>/spec.md
+   Next step - run scaffold with this spec:
+   /autonomous-dev:scaffold @docs/oru-agent/<feature-name>/spec.md
    ```
 
 ---
@@ -409,7 +409,7 @@ Before finalizing the spec, verify:
 
 ## Implementation Signals Guide
 
-The implementation signals help init-spec determine how to break down requirements into tasks and whether TDD is needed.
+The implementation signals help the scaffold command determine how to break down requirements into tasks and whether TDD is needed.
 
 **Check "Contains conditional logic or branching" when**:
 - Threshold checks or boundary conditions
