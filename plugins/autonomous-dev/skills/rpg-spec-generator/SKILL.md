@@ -1,6 +1,6 @@
 ---
 name: rpg-spec-generator
-description: Generate RPG (Repository Planning Graph) specs from design documents. Creates dependency-aware, topologically-ordered specifications with both human-readable markdown and machine-parseable YAML output.
+description: Generate RPG (Repository Planning Graph) specs from design documents. Creates dependency-aware, topologically-ordered specifications optimized for init-spec processing.
 ---
 
 # RPG Spec Generator
@@ -20,19 +20,13 @@ Transform brainstorming/design documents into structured specifications using th
 - When design documents exist in `docs/plans/*-design.md`
 - Before running `/autonomous-dev:init-spec`
 
-## Outputs
-
-This skill generates two files:
-- `spec.md` - Human-readable markdown specification
-- `spec.yaml` - Machine-parseable YAML for init-spec
-
 ## Examples
 
 ### Simple Feature (1-2 modules)
-See: `examples/simple-feature.md` and `examples/simple-feature.yaml`
+See: `examples/simple-feature.md`
 
 ### Complex Feature (multi-layer)
-See: `examples/complex-feature.md` and `examples/complex-feature.yaml`
+See: `examples/complex-feature.md`
 
 ---
 
@@ -342,7 +336,7 @@ For each item in Dependency Graph:
 - Suggest corrections (move item to later phase, or remove dependency)
 - Do NOT proceed to write output until resolved
 
-### Step 5: Write Spec Files
+### Step 5: Write Spec File
 
 Create the output directory:
 
@@ -350,156 +344,12 @@ Create the output directory:
 mkdir -p autonomous-dev/prds/<feature-name>
 ```
 
-**Write markdown spec**: Use the Write tool to create `autonomous-dev/prds/<feature-name>/spec.md` with the generated content from Step 4.
-
-**Write YAML spec**: Use the Write tool to create `autonomous-dev/prds/<feature-name>/spec.yaml` with the following structure:
-
-```yaml
-# RPG Spec: <feature-name>
-# Generated: <date>
-# Source: <design-doc-path>
-# Complexity: simple|medium|complex
-
-metadata:
-  feature_name: "<kebab-case>"
-  version: "1.0"
-  source: "<path>"
-  complexity: "<level>"
-
-purpose:
-  description: "<1-2 sentences>"
-  success_criteria:
-    - "<criterion 1>"
-    - "<criterion 2>"
-
-capabilities:
-  - name: "<domain-name>"
-    description: "<what this domain covers>"
-    features:
-      - name: "<feature-name>"
-        does: "<what it accomplishes>"
-        inputs: ["<input1>", "<input2>"]
-        outputs: ["<output1>"]
-        key_behavior: "<core logic>"
-        maps_to: ["FR-1", "FR-2"]
-        implements_in: "src/modules/<path>.ts"
-
-scope:
-  in_scope:
-    - "<item>"
-  out_of_scope:
-    - "<item>"
-
-requirements:
-  - id: "FR-1"
-    name: "<requirement name>"
-    priority: "P1|P2|P3"
-    description: "The system SHALL <action>"
-    acceptance_criteria:
-      given: "<precondition>"
-      when: "<action>"
-      then: "<expected result>"
-    implementation_signals:
-      conditional_logic: true|false
-      state_transitions: true|false
-      pure_data_change: true|false
-      edge_cases: true|false
-      critical_business_logic: true|false
-
-integration:
-  existing_services:
-    - name: "<service>"
-      purpose: "<why reuse>"
-      path: "<file path>"
-  api_changes:
-    - method: "POST|GET|PUT|DELETE"
-      path: "/api/<endpoint>"
-      type: "new|modified"
-  database_changes:
-    - table: "<name>"
-      type: "new|modified"
-      columns: ["<col1>", "<col2>"]
-      migration_required: true|false
-
-# Include for medium/complex only
-module_boundaries:
-  - name: "<module-name>"
-    responsibility: "<single purpose>"
-    capability: "<links to capability>"
-    location: "src/modules/<path>/"
-    exports:
-      - name: "<ClassName>"
-        type: "class|function"
-        purpose: "<what it provides>"
-    depends_on: ["<other-new-module>"]
-    uses: ["<existing-service>"]
-
-dependency_graph:
-  - phase: 0
-    name: "foundation"
-    items:
-      - id: "<item-id>"
-        description: "<what>"
-        depends_on: []
-  - phase: 1
-    name: "data"
-    items:
-      - id: "<item-id>"
-        description: "<what>"
-        depends_on: ["<foundation-item>"]
-  - phase: 2
-    name: "service"
-    items:
-      - id: "<item-id>"
-        description: "<what>"
-        depends_on: ["<data-item>"]
-  - phase: 3
-    name: "api"
-    items:
-      - id: "<item-id>"
-        description: "<what>"
-        depends_on: ["<service-item>"]
-  - phase: 4
-    name: "validation"
-    items:
-      - id: "<item-id>"
-        description: "<what>"
-        depends_on: ["<api-item>"]
-
-# Include for medium/complex only
-risk_areas:
-  business_logic:
-    - area: "<what>"
-      why_complex: "<reason>"
-      edge_cases: ["<case1>"]
-  integration:
-    - risk: "<what>"
-      mitigation: "<how>"
-
-# Include for medium/complex only
-implementation_hints:
-  patterns_to_follow:
-    - path: "<similar/feature/path>"
-      pattern: "<what to copy>"
-  reusable_components:
-    - name: "<service/utility>"
-      usage: "<how to leverage>"
-
-test_strategy:
-  unit_tests:
-    - target: "<service.method>"
-      scenarios: ["<scenario1>", "<scenario2>"]
-  e2e_scenarios:
-    - name: "happy_path"
-      flow: "<main user flow>"
-    - name: "edge_case"
-      flow: "<boundary test>"
-```
+**Write spec**: Use the Write tool to create `autonomous-dev/prds/<feature-name>/spec.md` with the generated content from Step 4.
 
 **Verify the write**:
 
 ```bash
-ls -lh autonomous-dev/prds/<feature-name>/
+ls -lh autonomous-dev/prds/<feature-name>/spec.md
 ```
 
 **Note on directory structure**:
@@ -521,9 +371,7 @@ After generating the spec, provide:
 
 2. **Next step command**:
    ```
-   Spec generated at:
-   - autonomous-dev/prds/<feature-name>/spec.md (human-readable)
-   - autonomous-dev/prds/<feature-name>/spec.yaml (machine-parseable)
+   Spec generated at: autonomous-dev/prds/<feature-name>/spec.md
 
    Next step - run init-spec with this spec:
    /autonomous-dev:init-spec @autonomous-dev/prds/<feature-name>/spec.md
@@ -542,7 +390,6 @@ Before finalizing the spec, verify:
 - [ ] IN SCOPE and OUT OF SCOPE sections are explicit
 - [ ] At least one E2E scenario exists
 - [ ] Integration context references actual paths when available
-- [ ] Both spec.md and spec.yaml are generated
 
 **RPG Method Checks:**
 - [ ] Each Capability has at least one Feature defined

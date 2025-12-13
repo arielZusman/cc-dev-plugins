@@ -1,14 +1,12 @@
 ---
 name: generate-spec
-description: Generate RPG spec from brainstorming/design document (creates spec.md + spec.yaml)
+description: Generate RPG spec from brainstorming/design document
 argument-hint: [path-to-design-doc]
 ---
 
 Use the `rpg-spec-generator` skill to transform a brainstorming/design document into a structured RPG specification.
 
-**Outputs:**
-- `spec.md` - Human-readable markdown specification
-- `spec.yaml` - Machine-parseable YAML for init-spec
+**Output:** `spec.md` - Structured specification for init-spec processing
 
 **RPG method produces:**
 - Capabilities section (WHAT the system does)
