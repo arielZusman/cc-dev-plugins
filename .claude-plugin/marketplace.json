@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "oru-agent",
-      "source": ".",
+      "source": "./",
       "description": "Long-running autonomous feature development for brownfield NestJS + Angular projects",
       "version": "1.2.1"
     }
