@@ -62,17 +62,30 @@ Read the user's free-form description from `$ARGUMENTS`.
 
 ### STEP 3: Validate Understanding
 
-Before asking clarifying questions, confirm your understanding.
+Before asking clarifying questions, confirm your understanding AND the feature name.
 
-**Use AskUserQuestion**:
-- Question: "Based on my analysis, I understand you want **[derived feature name]** that **[problem it solves]** for **[target users]**. Is this correct?"
+**3.1 Validate Understanding** - Use AskUserQuestion:
+- Question: "Based on my analysis, I understand you want a feature that **[problem it solves]** for **[target users]**. Is this correct?"
 - Header: "Validate"
 - Options:
-  - "Yes, that's correct" - Proceed to Step 4
+  - "Yes, that's correct" - Proceed to 3.2
   - "Partially correct" - Ask what was misunderstood, then re-parse
   - "No, let me clarify" - Return to Step 2 with new input
 
-**STOP HERE** until user confirms. Do not proceed without explicit validation.
+**3.2 Confirm Feature Name** - Use AskUserQuestion:
+- Question: "I'll name this feature **`[derived-kebab-case-name]`**. This will create the folder `docs/oru-agent/[name]/`. Is this name good?"
+- Header: "Name"
+- Options:
+  - "Yes, use that name" - Store name and proceed to Step 4
+  - "Suggest different name" - User provides alternative, validate it's kebab-case ≤30 chars
+
+**Name Validation Rules**:
+- Must be kebab-case (lowercase, hyphens only)
+- Max 30 characters
+- No special characters or spaces
+- If user provides invalid name, explain rules and ask again
+
+**STOP HERE** until user confirms both understanding AND name. Do not proceed without explicit validation.
 
 ### STEP 4: Clarifying Questions
 

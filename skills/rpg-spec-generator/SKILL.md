@@ -315,17 +315,65 @@ Before writing output, validate the dependency graph is acyclic:
 3. **No forward references**: Items cannot depend on items defined later in same phase
 4. **Completeness**: All `Depends On` references resolve to defined items
 
-**Validation Procedure:**
+**Validation Algorithm (Kahn's Topological Sort):**
+
 ```
-For each item in Dependency Graph:
-  For each dependency in item.depends_on:
-    - Verify dependency exists in an earlier phase
-    - Verify no circular path back to item
+FUNCTION validate_dag(phases):
+    # Build adjacency list and in-degree count
+    all_items = {}
+    in_degree = {}
+
+    FOR phase_num, phase IN enumerate(phases):
+        FOR item IN phase.items:
+            all_items[item.name] = {phase: phase_num, deps: item.depends_on}
+            in_degree[item.name] = len(item.depends_on)
+
+    # Verify all dependencies exist
+    FOR item_name, item IN all_items:
+        FOR dep IN item.deps:
+            IF dep NOT IN all_items:
+                RETURN ERROR: "Unknown dependency: '{dep}' referenced by '{item_name}'"
+
+    # Check phase ordering (deps must be in earlier phase)
+    FOR item_name, item IN all_items:
+        FOR dep IN item.deps:
+            IF all_items[dep].phase >= item.phase:
+                RETURN ERROR: "Invalid dependency: '{item_name}' (phase {item.phase}) depends on '{dep}' (phase {all_items[dep].phase})"
+
+    # Kahn's algorithm for cycle detection
+    queue = [item FOR item IN all_items IF in_degree[item] == 0]
+    sorted_count = 0
+
+    WHILE queue NOT EMPTY:
+        current = queue.pop()
+        sorted_count += 1
+
+        FOR item_name, item IN all_items:
+            IF current IN item.deps:
+                in_degree[item_name] -= 1
+                IF in_degree[item_name] == 0:
+                    queue.append(item_name)
+
+    IF sorted_count != len(all_items):
+        # Cycle detected - find items still with in_degree > 0
+        cycle_items = [item FOR item IN all_items IF in_degree[item] > 0]
+        RETURN ERROR: "Circular dependency detected involving: {cycle_items}"
+
+    RETURN SUCCESS: "DAG validation passed"
 ```
 
+**Quick Manual Check:**
+1. List all items and their phases
+2. For each dependency arrow, verify it points to an earlier phase
+3. If any arrow points sideways or forward → ERROR
+4. Draw dependency arrows; if you can't reach all items from Phase 0 → ERROR
+
 **If validation fails:**
-- List the circular/invalid dependencies
-- Suggest corrections (move item to later phase, or remove dependency)
+- List the circular/invalid dependencies found
+- Suggest corrections:
+  - Move item to later phase, OR
+  - Remove the problematic dependency, OR
+  - Split the item to break the cycle
 - Do NOT proceed to write output until resolved
 
 ### Step 5: Write Spec File

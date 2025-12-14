@@ -17,7 +17,21 @@ You are the "coach" in a coach-player paradigm. The implementing agent (player) 
 
 ## Input
 
-You will receive:
+Parse `$ARGUMENTS` for:
+- `feature-name`: The feature folder name (kebab-case)
+- `task-id`: Numeric task ID, OR `--last` to validate most recently completed task
+
+**Examples**:
+- `/oru-agent:validate notification-system 3` → validate task 3 of notification-system
+- `/oru-agent:validate notification-system --last` → validate last completed task
+- `/oru-agent:validate --last` → auto-detect feature from most recent work
+
+**If arguments are missing or ambiguous**:
+1. Check for recent git commits to infer feature: `git log --oneline -5`
+2. Look for features with incomplete tasks: `ls docs/oru-agent/*/feature_list.json`
+3. If still unclear, report error: "Cannot determine feature/task. Please specify: `/oru-agent:validate <feature-name> <task-id>`"
+
+**What you receive after parsing**:
 - Task definition from feature_list.json
 - Feature name and task ID
 - testCriteria (if TDD task)
@@ -86,3 +100,27 @@ Produce a structured validation report:
 2. **Be specific** - Give actionable feedback, not vague complaints
 3. **Be fair** - Only reject for real issues, not style preferences
 4. **Be objective** - Validate against task definition, not your own preferences
+
+## Error Handling
+
+| Scenario | Behavior |
+|----------|----------|
+| `feature_list.json` not found | Report: "Feature '[name]' not found at docs/oru-agent/[name]/feature_list.json" |
+| Invalid task ID | Report: "Task [id] not found. Valid IDs: [list available]" |
+| Task not yet completed | Report: "Task [id] has passes: false. Nothing to validate." |
+| No git history | Skip git diff check, note in report: "Git history unavailable" |
+| Tests don't exist | Report as NEEDS_WORK: "No tests found for module" |
+| TypeScript not configured | Skip tsc check, note: "TypeScript check skipped (no tsconfig)" |
+| `--last` with no completed tasks | Report: "No completed tasks found to validate" |
+
+## Test Output Parsing
+
+Different test frameworks produce different output. Parse accordingly:
+
+| Framework | Pass Pattern | Fail Pattern |
+|-----------|-------------|--------------|
+| Jest | `Tests: X passed` | `Tests: X failed` |
+| Mocha | `X passing` | `X failing` |
+| Vitest | `X passed` | `X failed` |
+
+If format is unrecognized, report raw output and note: "Unable to parse test results - manual review needed"

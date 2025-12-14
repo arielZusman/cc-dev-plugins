@@ -24,7 +24,19 @@ Execute these phases in order:
 
 2. **Derive feature name**: Extract a short, kebab-case name from the spec (e.g., "user-dashboard", "auth-flow"). This becomes the folder name: `docs/oru-agent/<feature-name>/`
 
-3. **Analyze the spec**: Identify core requirements, integration points, dependencies between sub-features, and risk areas.
+3. **Confirm feature name with user** - Use AskUserQuestion:
+   - Question: "I'll create this feature as **`[derived-name]`** in `docs/oru-agent/[derived-name]/`. Is this name correct?"
+   - Header: "Name"
+   - Options:
+     - "Yes, use that name" - Proceed
+     - "Use different name" - User provides alternative
+
+   **Name Validation**:
+   - Must be kebab-case (lowercase, hyphens only)
+   - Max 30 characters
+   - If invalid, explain and ask again
+
+4. **Analyze the spec**: Identify core requirements, integration points, dependencies between sub-features, and risk areas.
 
 ### PHASE 2: Analyze the Existing Codebase
 
@@ -176,3 +188,24 @@ After completion, provide:
 3. Key patterns identified
 4. Files created
 5. Next steps for implementation
+
+## Error Handling
+
+| Scenario | Behavior |
+|----------|----------|
+| Spec file not found | Report: "Spec not found at [path]. Run `/oru-agent:spec` first." |
+| No spec provided (empty arguments) | Ask user: "Please provide spec path or run `/oru-agent:spec` first." |
+| Feature directory already exists | Ask user: "Feature `[name]` already exists. Overwrite or choose new name?" |
+| Invalid feature name from user | Explain kebab-case rules (lowercase, hyphens, ≤30 chars) and ask again |
+| codebase_analysis.md not found | Perform full analysis using codebase-analysis skill (PHASE 2 fallback) |
+| User rejects task count repeatedly | After 3 re-proposals, ask: "Would you like to specify the exact number?" |
+| Git not initialized | Skip PHASE 6 commit; warn: "Git not available - skipping commit" |
+| docs/oru-agent/ directory missing | Create it: `mkdir -p docs/oru-agent` |
+| No available agents found | Use `general-purpose` as fallback for all tasks |
+| Spec missing required sections | Report which sections are missing; suggest running `/oru-agent:spec` again |
+
+## Re-proposal Limits
+
+When user selects "Fewer tasks" or "More tasks" in PHASE 3:
+- Maximum 3 re-proposals before escalating
+- On 4th attempt: "We've re-scoped 3 times. Please specify your preferred task count directly."
