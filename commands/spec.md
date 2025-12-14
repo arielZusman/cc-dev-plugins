@@ -6,7 +6,7 @@ argument-hint: [path-to-design-doc]
 
 Use the `rpg-spec-generator` skill to transform a brainstorming/design document into a structured RPG specification.
 
-**Output:** `spec.md` - Structured specification for scaffold command processing
+**Output:** `docs/oru-agent/<feature-name>/spec.md` - Structured specification for scaffold command processing
 
 **RPG method produces:**
 - Capabilities section (WHAT the system does)
